@@ -2,6 +2,11 @@
 
 module.exports = function(app) {
   app.controller('notesController', function($scope, notesServer) {
+    $scope.testValue = 'wow, such world';
+    $scope.helloworld = function() {
+      return $scope.testValue;
+    };
+
     $scope.getAllNotes = function() {
       notesServer.index()
         .success(function(data) {

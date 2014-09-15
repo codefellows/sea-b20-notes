@@ -1,10 +1,7 @@
 <div data-ng-controller="notesController">
+  <div data-dummy-directive dummy-value="helloworld()"></div>
   <button data-ng-click="deleteAll()">Sacrifice All to the MonGOD</button></br>
-  <form name="newnoteform">
-    <label data-ng-show="newnoteform.$dirty && newnoteform.$invalid">Note can't be blank</label>
-    <input type="text" required data-ng-model="newNote.noteBody">
-    <button data-ng-disabled="newnoteform.$invalid" data-ng-click="saveNewNote()">Save Note</button>
-  </form>
+  <div data-new-note-form></div>
   <div data-ng-repeat="note in notes">
     <p>
       <div data-ng-show="note.editing">

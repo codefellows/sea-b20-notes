@@ -1,0 +1,5 @@
+<form name="newnoteform">
+  <label data-ng-show="newnoteform.$dirty && newnoteform.$invalid">Note can't be blank</label>
+  <input type="text" required data-ng-model="newNote.noteBody">
+  <button data-ng-disabled="newnoteform.$invalid" data-ng-click="saveNewNote()">Save Note</button>
+</form>
