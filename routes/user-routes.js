@@ -21,7 +21,7 @@ module.exports = function(app, passport) {
     });
   });
 
-  app.get('api/v_0_0_1/users',
+  app.get('/api/v_0_0_1/users',
     passport.authenticate('basic', {session: false}),
     function(req, res) {
       res.json({'jwt': req.user.createToken(app)});

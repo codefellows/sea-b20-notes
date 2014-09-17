@@ -1,13 +1,10 @@
 'use strict';
 
 module.exports = function(app) {
-  app.controller('notesController', function($scope, notesServer) {
-    $scope.testValue = 'wow, such world';
-    $scope.helloworld = function() {
-      return $scope.testValue;
-    };
-
+  app.controller('notesController', function($scope, notesServer, auth) {
     $scope.getAllNotes = function() {
+      if(auth.sendJWT() === 'noauth') return false;
+
       notesServer.index()
         .success(function(data) {
            $scope.notes = data;
@@ -23,10 +20,11 @@ module.exports = function(app) {
       }
     };
 
-    $scope.saveNewNote = function() {
+    $scope.saveNewNote = function(form) {
       notesServer.saveNewNote($scope.newNote)
         .success(function(data) {
           $scope.notes.push(data);
+          $scope.newNote.noteBody = '';
         });
     };
 

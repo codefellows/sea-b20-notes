@@ -8,12 +8,11 @@ module.exports = function(app, jwtauth) {
   app.get(baseUrl, jwtauth, function(req, res){
     Note.find({}, function(err, notes) {
       if (err) return res.status(500).json(err);
-      console.log('found');
       return res.send(notes);
     });
   });
 
-  app.post(baseUrl, function(req, res) {
+  app.post(baseUrl, jwtauth, function(req, res) {
     var note = new Note(req.body);
     note.save(function(err, resNote) {
       if (err) return res.status(500).json(err);
@@ -21,14 +20,14 @@ module.exports = function(app, jwtauth) {
     });
   });
 
-  app.get(baseUrl + '/:id', function(req, res) {
+  app.get(baseUrl + '/:id', jwtauth, function(req, res) {
     Note.findOne({'_id': req.params.id}, function(err, note) {
       if (err) return res.status(500).json(err);
       return res.json(note);
     });
   });
 
-  app.put(baseUrl + '/:id', function(req, res) {
+  app.put(baseUrl + '/:id', jwtauth, function(req, res) {
     var note = req.body;
     delete note._id;
     Note.findOneAndUpdate({'_id': req.params.id}, note, function(err, resNote) {
@@ -37,7 +36,7 @@ module.exports = function(app, jwtauth) {
     });
   });
 
-  app.delete(baseUrl + '/:id', function(req, res) {
+  app.delete(baseUrl + '/:id', jwtauth, function(req, res) {
     Note.remove({'_id': req.params.id}, function(err) {
       if (err) return res.status(500).json(err);
       return res.status(200).json({'msg': 'deleted'});
