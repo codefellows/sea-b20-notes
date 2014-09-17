@@ -8,7 +8,6 @@ module.exports = function(app) {
     if($location.path() === '/signup') $scope.newuser = true;
 
     $scope.signin = function() {
-      console.log('clicked');
       $http.defaults.headers.common['Authorization'] = 'Basic ' + $base64.encode($scope.user.email + ':' + $scope.user.password);
       $http({
         method: 'GET',
